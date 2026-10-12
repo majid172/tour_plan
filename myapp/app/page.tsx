@@ -346,7 +346,7 @@ export default function HomePage() {
 
           <div className="text-[11px] text-center md:text-right space-y-0.5 text-slate-500">
             <p>মেড উইথ 💚 বাংলাদেশের ভ্রমণপিপাসুদের জন্য।</p>
-            <p>© {new Date().getFullYear()} Kothay Jabo. সর্বস্বত্ব সংরক্ষিত।</p>
+            <p>© 2026 Kothay Jabo. সর্বস্বত্ব সংরক্ষিত।</p>
           </div>
         </div>
       </footer>
