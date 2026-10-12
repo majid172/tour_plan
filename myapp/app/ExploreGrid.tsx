@@ -155,10 +155,17 @@ export const ExploreGrid: React.FC<ExploreGridProps> = ({ destinations, onSelect
                     </span>
                   </div>
 
-                  {/* District Pin */}
-                  <div className="absolute bottom-2.5 left-3 flex items-center gap-1 text-[11px] text-white font-medium drop-shadow">
-                    <MapPin className="w-3 h-3 text-emerald-300" />
-                    <span>{dest.district}</span>
+                  {/* District Pin & Photo Count Badge */}
+                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white font-medium drop-shadow">
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-emerald-300" />
+                      <span>{dest.district}</span>
+                    </div>
+                    {dest.images && dest.images.length > 1 && (
+                      <span className="px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[10px] font-bold text-white border border-white/20">
+                        📸 {dest.images.length}টি ছবি
+                      </span>
+                    )}
                   </div>
                 </div>
 

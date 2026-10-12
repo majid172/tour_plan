@@ -11,7 +11,7 @@ export interface Destination {
   travelTime: string;
   bestTimeToVisit: string;
   estimatedBudget: {
-    budget: string; 
+    budget: string;
     standard: string;
     luxury: string;
   };
@@ -32,6 +32,7 @@ export interface Destination {
   famousFoods: string[];
   tipsAndAdvice: string[];
   image: string;
+  images?: string[];
   badgeColor: string;
   color: string; // for wheel slice
 }
@@ -71,7 +72,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Wear modest clothes and comfortable walking sandals for cobbled paths.',
       'Old Dhaka alleys are best explored on foot or traditional cycle-rickshaws.'
     ],
-    image: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=800&q=80',
+    image: 'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9REonV5XOCr29kotm3N3ruB9ExAhPcnlqQlhmHPDbRj4Im1Bc6vNm90N1ZzC9iy4TomOZhRTRWF1--_DwCEHP4WyKiKZbQh78c4DUaK0gKNdKcD3ttdos939mia2WZw4U1lEHI_=s680-w680-h510-rw',
+    images: [
+      'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9REonV5XOCr29kotm3N3ruB9ExAhPcnlqQlhmHPDbRj4Im1Bc6vNm90N1ZzC9iy4TomOZhRTRWF1--_DwCEHP4WyKiKZbQh78c4DUaK0gKNdKcD3ttdos939mia2WZw4U1lEHI_=s680-w680-h510-rw',
+      'https://lh3.googleusercontent.com/gps-cs-s/ANWiy9RGja_Sslqv8Bigg84HiYFiffS5dEUx4G58v4M0rNffFYNRWnwXf2h2m5F0pkdtB7-qDwJsM8_ZjTm49v00nm0nVHy7lyTDeTbIldZrD4y82VjXx-BNDKSz82YO3Iv3f4kneXLLaw=s680-w680-h510-rw',
+      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-amber-600 to-red-600',
     color: '#D97706'
   },
@@ -108,6 +116,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Combine with Sonargaon craft village for hand-loomed Jamdani sarees.'
     ],
     image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-emerald-700 to-teal-800',
     color: '#059669'
   },
@@ -144,6 +159,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Keep your ticket safe until exit.'
     ],
     image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-green-600 to-lime-700',
     color: '#16A34A'
   },
@@ -179,7 +201,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Evening illuminated bridge lights create spectacular photo opportunities.',
       'Check wind conditions before boarding speedboats.'
     ],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1545652985-5edd365b12eb?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1545652985-5edd365b12eb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-blue-600 to-indigo-800',
     color: '#2563EB'
   },
@@ -252,6 +281,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Bring binoculars and telephoto lenses for wildlife photography.'
     ],
     image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-cyan-700 to-blue-900',
     color: '#0891B2'
   },
@@ -362,7 +398,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Pre-book wooden cottage resorts at least 2-3 weeks in advance for weekends.',
       'Always keep original NID / Student ID copy handy for Army checkpoints.'
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-emerald-600 to-sky-700',
     color: '#059669'
   },
@@ -401,6 +444,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Iconic oyster-shaped railway station is worth exploring for photography.'
     ],
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80'
+    ],
     badgeColor: 'from-blue-600 to-teal-500',
     color: '#0284C7'
   },

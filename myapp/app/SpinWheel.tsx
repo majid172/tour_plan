@@ -52,7 +52,7 @@ export const SpinWheel: React.FC<SpinWheelProps> = ({
     '#16a34a', // Fresh Green
     '#0891b2', // Vibrant Cyan
     '#db2777', // Magenta Pink
-    '#ca8a04', // Golden Ochre
+    '#2563eb', // Cobalt Blue
   ];
 
   // Initialize Web Audio Context for realistic peg clicks
