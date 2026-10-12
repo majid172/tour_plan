@@ -14,8 +14,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "কোথায় যাবো? (Kothay Jabo) - ভ্রমণ আবিষ্কার ও ট্রাভেল প্ল্যানার",
-  description: "কোথায় ঘুরতে যাবেন বুঝতে পারছেন না? চাকা ঘুরিয়ে আবিষ্কার করুন বাংলাদেশের সেরা ভ্রমণ স্থান, সঠিক ভাড়া, দূরত্ব ও আকর্ষণ।",
+  title: "কোথায় যাবো? (Kothay Jabo) - ভ্রমণ আবিষ্কার ও ট্রাভেল প্ল্যানার",
+  description: "কোথায় ঘুরতে যাবেন বুঝতে পারছেন না? চাকা ঘুরিয়ে আবিষ্কার করুন বাংলাদেশের সেরা ভ্রমণ স্থান, সঠিক ভাড়া, দূরত্ব ও আকর্ষণ।",
 };
 
 export default function RootLayout({
@@ -27,8 +27,26 @@ export default function RootLayout({
     <html
       lang="bn"
       className={`${hindSiliguri.variable} ${inter.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans bg-slate-50 text-slate-800">
+      <head>
+        {/* Inline script to apply theme before first paint — avoids flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('kj-theme');
+                  if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col font-sans bg-slate-50 dark:bg-[#0c1117] text-slate-800 dark:text-slate-200">
         {children}
       </body>
     </html>
