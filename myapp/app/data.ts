@@ -443,13 +443,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Rent an open-hood auto (Tomtom) to cruise Marine drive around 4 PM for sunset.',
       'Iconic oyster-shaped railway station is worth exploring for photography.'
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://mybestfly.com/_next/image?url=https%3A%2F%2Fpub-5e439b5f38ca499ea1969bcc1d71b180.r2.dev%2Fmybestfly_assets%2Fassets%2Fblogs%2Fbest-places-to-visit-in-coxs-bazar%2Ffeatured-1783511674.webp&w=3840&q=75',
     images: [
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80'
+      'https://mybestfly.com/_next/image?url=https%3A%2F%2Fpub-5e439b5f38ca499ea1969bcc1d71b180.r2.dev%2Fmybestfly_assets%2Fassets%2Fblogs%2Fbest-places-to-visit-in-coxs-bazar%2Ffeatured-1783511674.webp&w=3840&q=75',
+      'https://tbbd-flight.s3.ap-southeast-1.amazonaws.com/blogC271PhTlRXvHUt9WcvtXXVaRY_F33pEB.png',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e2/f8/43/longest-sea-beach-in.jpg?w=1100&h=-1&s=1',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSCCG3jdtIkgBXFjjnf9zoE8n7GMPw3X5DLJurHVUkttEsPRrFySoHGXc&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDNt5kwAgaQp3Ux8Rv_PMrLsB6usZ8HLdmFDa81tjFRxk5XQBrYbbHbhQ&s=10'
     ],
     badgeColor: 'from-blue-600 to-teal-500',
     color: '#0284C7'
