@@ -367,7 +367,12 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Pedestrian tracks are great for jogging and evening leisure walks.',
       'Security is active throughout the night along the ring road.'
     ],
-    image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80',
+    image: 'https://vitti.com.bd/media/images/01_Maruf.max-2000x2000_5AAQtfw.jpg',
+    images: [
+      'https://vitti.com.bd/media/images/01_Maruf.max-2000x2000_5AAQtfw.jpg',
+      'https://vromonguide.com/wp-content/uploads/Hatirjheel-Dhaka-770x420.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/e/ea/Dhaka_21st_March_%2825870222381%29.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original'
+    ],
     badgeColor: 'from-sky-600 to-blue-700',
     color: '#0284C7'
   },
@@ -406,13 +411,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Pre-book wooden cottage resorts at least 2-3 weeks in advance for weekends.',
       'Always keep original NID / Student ID copy handy for Army checkpoints.'
     ],
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH2napfSZawlEy6G9WHbPdDnM5RQP2WVz5WnbgMi6ctgOBw3_IxDBNhaJd&s=10',
     images: [
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80'
+      'https://www.travelmate.com.bd/wp-content/uploads/2022/03/Konglak-Para.png.webp',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH2napfSZawlEy6G9WHbPdDnM5RQP2WVz5WnbgMi6ctgOBw3_IxDBNhaJd&s=10',
+      'https://www.bdbooking.com/upload/property/hotel/111120202310036495facd1bb040a3.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn_VEe6tuDwkvI5HUJfZ_EtStXdohiXNl3qduXS7dxSw&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZvo66w65pr3fDBtZRYk9kM03rX0WimwlWeNEAN8slnMKl5M7gKqdx2mQe&s=10'
     ],
     badgeColor: 'from-emerald-600 to-sky-700',
     color: '#059669'
@@ -582,7 +587,15 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Do not touch or collect live coral rocks; keep the island clean.',
       'Electricity is powered by solar and generator in eco-resorts.'
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://jooinn.com/images/coral-sea-beach-at-chera-dwip-saint-martins-island.jpg',
+    images: [
+      'https://jooinn.com/images/coral-sea-beach-at-chera-dwip-saint-martins-island.jpg',
+      'https://img.magnific.com/premium-photo/saint-martin-island-drone-photography_203617-3.jpg?semt=ais_hybrid&w=740&q=80',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq-TvbgdSfxM2Acto7nyHzoPgvRDPY01tTVb8NVy6pJbgsSzUOI5McAsg6&s=10',
+      'https://media.istockphoto.com/id/474259514/photo/boat-on-the-tropical-beach.jpg?s=612x612&w=0&k=20&c=1ersoGRQdPK6WLy498-QF33Bvi04VK__1G8IoufvR9E=',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUNgZzjHoqSUmKV2OSQO8ZMsALt10721HqwRD4simdksFynM_hhy47hg8&s=10',
+      'https://www.touristplacesbd.xyz/saint_martins.png'
+    ],
     badgeColor: 'from-teal-500 to-cyan-700',
     color: '#0D9488'
   },
@@ -619,7 +632,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Book Nilgiri cottages months in advance via Army HQ if planning to sleep at the summit.',
       'Wear sturdy trekking shoes with excellent grip.'
     ],
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+    image: 'https://ak-d.tripcdn.com/images/1mi1p224x9abncqm48DBB_R_600_400_R5_Q90.jpg?proc=source/trip',
+    images: [
+      'https://ak-d.tripcdn.com/images/1mi1p224x9abncqm48DBB_R_600_400_R5_Q90.jpg?proc=source/trip',
+      'https://cosmosgroup.sgp1.digitaloceanspaces.com/news/y8eC0WBzPEEVyKIGGjcM3zKIgirEYLTLvioF3GaP.jpeg',
+      'https://upload.wikimedia.org/wikipedia/commons/c/ce/Buddha_Dhatu_Jadi_05.jpg?utm_source=bn.wikipedia.org&utm_campaign=index&utm_content=original',
+      'https://vromonguide.com/wp-content/uploads/nilgiri-travel-guide.jpg',
+      'https://www.shutterstock.com/editorial/image-editorial/M3z3U630OeD6Q40bOTk3Nw==/nilgiri--bandarban-%C3%B1-this-resort-located-47-550nw-3556770a.jpg',
+    ],
     badgeColor: 'from-indigo-700 to-purple-900',
     color: '#4F46E5'
   },
@@ -662,6 +682,7 @@ export const DESTINATIONS_DATA: Destination[] = [
       'https://vromonguide.com/wp-content/uploads/ratargul-swamp-forest-1.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/6/63/Ratargul_Swamp_Forest%2C_Sylhet..jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original',
       'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/0f/53/bc/jaflong-sylhet.jpg?w=1200&h=800&s=1',
+      'https://upload.wikimedia.org/wikipedia/commons/c/c9/Shah_Jalal_Mazar_at_Sylhet.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original',
       'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85'
     ],
     badgeColor: 'from-emerald-700 to-green-900',

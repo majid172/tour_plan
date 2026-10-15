@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { Destination } from './data';
-import { MapPin, Search, Clock, ArrowRight, Sparkles, Wallet } from 'lucide-react';
+import { MapPin, Search, Clock, ArrowRight, Sparkles, Wallet, Shuffle } from 'lucide-react';
 
 interface ExploreGridProps {
   destinations: Destination[];
@@ -13,6 +13,26 @@ export const ExploreGrid: React.FC<ExploreGridProps> = ({ destinations, onSelect
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDivision, setSelectedDivision] = useState<string>('all');
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'inside_dhaka' | 'outside_dhaka'>('all');
+  const [shuffledList, setShuffledList] = useState<Destination[]>(destinations);
+
+  // Fisher-Yates random shuffle algorithm
+  const shuffleArray = useCallback((items: Destination[]) => {
+    const array = [...items];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }, []);
+
+  // Randomize cards on initial mount and when destinations change
+  useEffect(() => {
+    setShuffledList(shuffleArray(destinations));
+  }, [destinations, shuffleArray]);
+
+  const handleReshuffle = () => {
+    setShuffledList(shuffleArray(destinations));
+  };
 
   const divisions = useMemo(() => {
     const list = Array.from(new Set(destinations.map((d) => d.division)));
@@ -20,7 +40,7 @@ export const ExploreGrid: React.FC<ExploreGridProps> = ({ destinations, onSelect
   }, [destinations]);
 
   const filtered = useMemo(() => {
-    return destinations.filter((item) => {
+    return shuffledList.filter((item) => {
       const matchCat = selectedCategory === 'all' || item.category === selectedCategory;
       const matchDiv = selectedDivision === 'all' || item.division === selectedDivision;
       const matchQuery =
@@ -32,7 +52,7 @@ export const ExploreGrid: React.FC<ExploreGridProps> = ({ destinations, onSelect
 
       return matchCat && matchDiv && matchQuery;
     });
-  }, [destinations, selectedCategory, selectedDivision, searchQuery]);
+  }, [shuffledList, selectedCategory, selectedDivision, searchQuery]);
 
   return (
     <section className="space-y-4 text-xs sm:text-sm">
@@ -103,21 +123,31 @@ export const ExploreGrid: React.FC<ExploreGridProps> = ({ destinations, onSelect
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1">
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-1">
         <div className="flex items-center gap-1.5">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+          <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
           <span>
             মোট পাওয়া গেছে: <strong className="text-emerald-700 dark:text-emerald-400 font-bold">{filtered.length}</strong> টি গন্তব্য
           </span>
         </div>
-        {searchQuery && (
+        <div className="flex items-center gap-2.5">
           <button
-            onClick={() => setSearchQuery('')}
-            className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium cursor-pointer underline text-xs"
+            onClick={handleReshuffle}
+            title="কার্ডগুলো নতুন করে র‍্যান্ডম সাজান"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 font-bold border border-emerald-200 dark:border-emerald-800 transition cursor-pointer active:scale-95 text-xs shadow-xs"
           >
-            সার্চ ফিল্টার ক্লিয়ার
+            <Shuffle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+            <span>র‍্যান্ডম সাজান (Shuffle)</span>
           </button>
-        )}
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium cursor-pointer underline text-xs"
+            >
+              সার্চ ফিল্টার ক্লিয়ার
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Cards Grid */}
