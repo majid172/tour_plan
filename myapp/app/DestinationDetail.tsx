@@ -267,8 +267,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
                 src={galleryImages[activeImageIndex]}
                 alt={`${destination.name} - Showcase`}
                 onLoad={() => handleImageLoad(galleryImages[activeImageIndex])}
-                style={{ imageRendering: 'high-quality' }}
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-104 block"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-104 block hd-image"
               />
 
               {/* Refined Scrim Gradient (Only bottom 28% for text, keeps landscape bright and vibrant) */}
@@ -347,8 +346,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
                     src={item.url}
                     alt={`${destination.nameBn} - ${idx + 2}`}
                     onLoad={() => handleImageLoad(item.url)}
-                    style={{ imageRendering: 'high-quality' }}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108 block"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108 block hd-image"
                   />
                   <div className="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors" />
 
@@ -385,8 +383,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
               src={galleryImages[activeImageIndex]}
               alt={`${destination.name} - Cinematic`}
               onLoad={() => handleImageLoad(galleryImages[activeImageIndex])}
-              style={{ imageRendering: 'high-quality' }}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103 hd-image"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/25 via-35% to-transparent pointer-events-none" />
 
@@ -482,8 +479,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
                     <img
                       src={img}
                       alt={`${destination.nameBn} - Photo ${idx + 1}`}
-                      style={{ imageRendering: 'high-quality' }}
-                      className="w-full h-full object-contain group-hover:scale-104 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-104 transition-transform duration-500 hd-image"
                     />
                     <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 text-white text-[10px] font-bold backdrop-blur-md border border-white/20">
                       #{idx + 1}
@@ -950,8 +946,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
                 key={`lightbox-img-${activeImageIndex}-${isZoomed}`}
                 src={galleryImages[activeImageIndex]}
                 alt={`${destination.name} - Fullscreen Preview`}
-                style={{ imageRendering: 'high-quality' }}
-                className={`${
+                className={`hd-image ${
                   isZoomed
                     ? 'max-h-none max-w-none w-auto h-auto rounded-xl shadow-2xl select-none border border-white/20 animate-fadeIn'
                     : 'max-h-[72vh] sm:max-h-[76vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl select-none border border-white/10 animate-fadeIn'
