@@ -201,13 +201,13 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Evening illuminated bridge lights create spectacular photo opportunities.',
       'Check wind conditions before boarding speedboats.'
     ],
-    image: 'https://images.unsplash.com/photo-1545652985-5edd365b12eb?auto=format&fit=crop&w=800&q=80',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQim9lKk4YbzuG8-xjz5qoQv7zlk7KNPGmwn2AGWL4tBmvzu_JhJ0ma3Y&s=10',
     images: [
-      'https://images.unsplash.com/photo-1545652985-5edd365b12eb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1559827291-72ee739d0d9a?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQim9lKk4YbzuG8-xjz5qoQv7zlk7KNPGmwn2AGWL4tBmvzu_JhJ0ma3Y&s=10',
+      'https://ecdn.dhakatribune.net/contents/cache/images/800x450x1/uploads/dten/2022/06/14/1-219.jpeg',
+      'https://tbbd-flight.s3.ap-southeast-1.amazonaws.com/blogdZ07KH8Ajk6di_0uzEk6-xwB9AKtvBxE.jpg',
+      'https://aviationandtourismtimes.com/uploads/images/202609/image_900x600_03d4e4f46cad5423cc6f45659533c22c.webp',
+      'https://images.indianexpress.com/2022/06/IMG_8380-2.jpg?w=640'
     ],
     badgeColor: 'from-blue-600 to-indigo-800',
     color: '#2563EB'
@@ -536,7 +536,7 @@ export const DESTINATIONS_DATA: Destination[] = [
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs6ylPxF8oIC3zC9yq9ZHbchKckW0v0Kb4Qo7pA8S7yeZ3zaW5kIwNJg8&s=10',
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyjQr-ts6HEXcyOtDpoVESFz3c_w8jffZZJqhDuXY8Ge0AAX-oBZqd4Sk&s=10',
       'https://seafoodnetworkbd.com/wp-content/uploads/2024/12/Sundarbans_mangroves_forest_bangladesh.jpg',
-      'https://cosmosgroup.sgp1.digitaloceanspaces.com/news/details/6568412_Sundarban_river_mangrove_forest.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTALyGqMAnfnmZ-qiXK-bKWNEmV8smsYRoxMy94rwi5c13yuf3YqVPB0Jc&s=10',
       
     ],
     badgeColor: 'from-amber-800 to-emerald-900',
