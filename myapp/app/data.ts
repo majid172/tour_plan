@@ -533,11 +533,11 @@ export const DESTINATIONS_DATA: Destination[] = [
     ],
     image: 'https://images.firstpost.com/uploads/2026/05/featured-image-48-2026-05-fac353ebb592665f1d9dcdcb227a6b44.jpg?im=Resize,width=720,aspect=fit,type=normal',
     images: [
-      'https://today.thefinancialexpress.com.bd/uploads/1693324787.jpg',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVA7NYJ-AQV6gEjXO4SqO4sgwpH4wwab-ZSzLLqlwTQ6TF0dfvcqBBGk&s=10',
-      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e2/f8/43/longest-sea-beach-in.jpg?w=1100&h=-1&s=1',
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSCCG3jdtIkgBXFjjnf9zoE8n7GMPw3X5DLJurHVUkttEsPRrFySoHGXc&s=10',
-      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhCFv3uSjPYvxgKkFJl0VBMNrDbSIYFx0oRslcZ3brOGt-P6Z6sVmmd6IPTVzUipfIkPnCUyUeXt4_f6u_Eoo7OoM_I75Ad-fPK3EBcUscLBBt80xYNZJKCFozOs5svnYGobMUL9wwuprA/s1600/319_1bangla6055.jpg'
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs6ylPxF8oIC3zC9yq9ZHbchKckW0v0Kb4Qo7pA8S7yeZ3zaW5kIwNJg8&s=10',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyjQr-ts6HEXcyOtDpoVESFz3c_w8jffZZJqhDuXY8Ge0AAX-oBZqd4Sk&s=10',
+      'https://seafoodnetworkbd.com/wp-content/uploads/2024/12/Sundarbans_mangroves_forest_bangladesh.jpg',
+      'https://cosmosgroup.sgp1.digitaloceanspaces.com/news/details/6568412_Sundarban_river_mangrove_forest.jpg',
+      
     ],
     badgeColor: 'from-amber-800 to-emerald-900',
     color: '#15803D'
