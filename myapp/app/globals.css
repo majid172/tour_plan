@@ -145,3 +145,12 @@ body, header, footer, .light-panel, .light-card, input, select {
   transition-duration: 0.2s;
   transition-timing-function: ease;
 }
+
+/* Image Rendering & HD Presentation */
+.hd-image {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+

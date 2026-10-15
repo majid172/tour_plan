@@ -653,8 +653,8 @@ export const DESTINATIONS_DATA: Destination[] = [
       'https://www.takeyourbackpack.com/CONTENT/googlePhotos/1200/bangladesh-national-park-ratargul-swamp-forest.webp',
       'https://vromonguide.com/wp-content/uploads/ratargul-swamp-forest-1.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/6/63/Ratargul_Swamp_Forest%2C_Sylhet..jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original',
-      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/0f/53/bc/jaflong-sylhet.jpg?w=900&h=500&s=1',
-      'https://t4.ftcdn.net/jpg/06/99/45/61/360_F_699456135_myZiVNvI1UaEZ24BByzxmpazcLU22lZ0.jpg'
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/0f/53/bc/jaflong-sylhet.jpg?w=1200&h=800&s=1',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85'
     ],
     badgeColor: 'from-emerald-700 to-green-900',
     color: '#059669'

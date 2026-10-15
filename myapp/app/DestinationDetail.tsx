@@ -23,7 +23,17 @@ import {
   ChevronLeft,
   ChevronRight,
   Maximize2,
+  Minimize2,
   Image as ImageIcon,
+  LayoutGrid,
+  Film,
+  Scan,
+  ZoomIn,
+  ZoomOut,
+  Play,
+  Pause,
+  Download,
+  Eye,
 } from 'lucide-react';
 
 interface DestinationDetailProps {
@@ -57,12 +67,27 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
 
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'bento' | 'cinematic' | 'natural'>('bento');
+  const [isZoomed, setIsZoomed] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   // Reset when destination changes
   useEffect(() => {
     setActiveImageIndex(0);
     setIsLightboxOpen(false);
+    setIsZoomed(false);
+    setIsPlaying(false);
   }, [destination.id]);
+
+  // Autoplay slideshow in cinematic mode
+  useEffect(() => {
+    if (viewMode !== 'cinematic' || !isPlaying) return;
+    const timer = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [viewMode, isPlaying, galleryImages.length]);
 
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -71,6 +96,7 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsLightboxOpen(false);
+        setIsZoomed(false);
       } else if (e.key === 'ArrowRight') {
         setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
       } else if (e.key === 'ArrowLeft') {
@@ -92,7 +118,20 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
     setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
   };
 
-  // 4 side images for the 1/3 side section (2 rows of 2 images each)
+  const toggleBrowserFullscreen = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+
+  const handleImageLoad = (url: string) => {
+    setLoadedImages((prev) => ({ ...prev, [url]: true }));
+  };
+
+  // 4 side images for the balanced mosaic section
   const sideImages = [
     { url: galleryImages[1] || galleryImages[0], index: 1 < galleryImages.length ? 1 : 0 },
     { url: galleryImages[2] || galleryImages[0], index: 2 < galleryImages.length ? 2 : 0 },
@@ -130,179 +169,352 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
 
   return (
     <div className="light-panel rounded-3xl overflow-hidden transition-all text-xs sm:text-sm shadow-xl">
-      {/* Luxury Gallery Banner Stage: 2/3 Main Hero Showcase + 1/3 Side (4 images in 2 rows) */}
-      <div className="relative p-2 sm:p-2.5 bg-slate-900 dark:bg-slate-950 select-none border-b border-slate-200/80 dark:border-slate-800">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-2.5 h-[360px] sm:h-[430px] md:h-[470px] lg:h-[490px]">
-          {/* LEFT 2/3 SHOWCASE HERO (8 of 12 cols = 2/3) */}
-          <div
-            className="md:col-span-8 relative h-full min-h-0 rounded-2xl overflow-hidden group cursor-pointer bg-slate-800"
-            onClick={() => setIsLightboxOpen(true)}
-          >
-            {/* Main Showcase Image */}
-            <img
-              key={activeImageIndex}
-              src={galleryImages[activeImageIndex]}
-              alt={`${destination.name} - Showcase`}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-104 block"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-slate-950/10 pointer-events-none" />
+      {/* Luxury Gallery Banner Stage with Adaptive Light/Dark Theming */}
+      <div className="relative p-2.5 sm:p-3 bg-slate-100/90 dark:bg-slate-950 select-none border-b border-slate-200/90 dark:border-slate-800 transition-colors">
+        {/* Top Control Bar: View Mode Switcher, Badges & Close Button */}
+        <div className="flex flex-wrap items-center justify-between gap-2 mb-2 sm:mb-2.5 px-1">
+          {/* Left Badges */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-600 text-white shadow-xs flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              {destination.category === 'inside_dhaka' ? 'ঢাকার ভেতরে ডে-ট্যুর' : 'ঢাকার বাইরে ভ্রমণ'}
+            </span>
+            <span className="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-white dark:bg-white/10 text-slate-700 dark:text-slate-200 backdrop-blur-md border border-slate-200 dark:border-white/15 shadow-xs">
+              {destination.division} বিভাগ
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse" />
+              4K আল্ট্রা এইচডি
+            </span>
+          </div>
 
-            {/* Previous Arrow Button */}
-            {galleryImages.length > 1 && (
+          {/* Right Controls: View Mode Switcher & Lightbox / Close */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* View Mode Switcher */}
+            <div className="flex items-center p-0.5 rounded-xl bg-white dark:bg-white/10 backdrop-blur-md border border-slate-200 dark:border-white/15 shadow-xs">
               <button
-                onClick={handlePrev}
-                aria-label="Previous photo"
-                className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer"
+                onClick={() => setViewMode('bento')}
+                title="বেন্টো গ্রিড মোড (Balanced Bento)"
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  viewMode === 'bento'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
               >
-                <ChevronLeft className="w-5 h-5" />
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">বেন্টো গ্রিড</span>
+              </button>
+              <button
+                onClick={() => setViewMode('cinematic')}
+                title="সিনেমাটিক ওয়াইডস্ক্রিন মোড (Full 16:9 Cinema)"
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  viewMode === 'cinematic'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Film className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">সিনেমাটিক</span>
+              </button>
+              <button
+                onClick={() => setViewMode('natural')}
+                title="নো-ক্রপ অরিজিনাল ভিউ (True Native Ratio)"
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                  viewMode === 'natural'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                <Scan className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">নো-ক্রপ</span>
+              </button>
+            </div>
+
+            {/* Lightbox Expand Button */}
+            <button
+              onClick={() => setIsLightboxOpen(true)}
+              title="ফুলস্ক্রিন লাইটবক্স ও আসল রেজোলিউশন জুম"
+              className="p-1.5 sm:p-2 rounded-xl bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/20 text-slate-700 dark:text-white backdrop-blur-md border border-slate-200 dark:border-white/15 shadow-xs transition active:scale-95 cursor-pointer flex items-center gap-1"
+            >
+              <Maximize2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span className="hidden lg:inline text-[11px] font-bold pr-1">ফুলস্ক্রিন</span>
+            </button>
+
+            {/* Optional Close Button */}
+            {onClose && (
+              <button
+                onClick={onClose}
+                title="বন্ধ করুন"
+                className="p-1.5 sm:p-2 rounded-xl bg-white dark:bg-white/10 hover:bg-slate-50 dark:hover:bg-white/25 text-slate-700 dark:text-white backdrop-blur-md border border-slate-200 dark:border-white/15 shadow-xs transition cursor-pointer"
+              >
+                <X className="w-4 h-4" />
               </button>
             )}
+          </div>
+        </div>
 
-            {/* Next Arrow Button */}
-            {galleryImages.length > 1 && (
-              <button
-                onClick={handleNext}
-                aria-label="Next photo"
-                className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/45 hover:bg-black/75 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            )}
+        {/* --- VIEW MODE 1: BALANCED 5-PHOTO BENTO GRID --- */}
+        {viewMode === 'bento' && (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-2.5 sm:gap-3 h-[380px] sm:h-[440px] md:h-[480px] lg:h-[510px]">
+            {/* Left Main Showcase (6 of 12 on MD, 7 of 12 on LG = Balanced 50%-58% Width) */}
+            <div
+              className="md:col-span-6 lg:col-span-7 relative h-full min-h-0 rounded-2xl overflow-hidden group cursor-pointer bg-slate-200 dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 shadow-md"
+              onClick={() => setIsLightboxOpen(true)}
+            >
+              {/* Main Showcase Image with High-Definition Rendering */}
+              <img
+                key={`bento-main-${activeImageIndex}`}
+                src={galleryImages[activeImageIndex]}
+                alt={`${destination.name} - Showcase`}
+                onLoad={() => handleImageLoad(galleryImages[activeImageIndex])}
+                style={{ imageRendering: 'high-quality' }}
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-104 block"
+              />
 
-            {/* Top Badges & Controls on Main 2/3 Image */}
-            <div className="absolute top-3.5 sm:top-4 left-3.5 sm:left-4 right-3.5 sm:right-4 z-20 flex items-center justify-between gap-2">
-              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-600 text-white shadow-sm flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" />
-                  {destination.category === 'inside_dhaka' ? 'ঢাকার ভেতরে ভ্রমণ' : 'ঢাকার বাইরে ভ্রমণ'}
-                </span>
-                <span className="px-3 py-1 rounded-full text-[11px] font-semibold bg-white/95 text-slate-800 shadow-sm border border-slate-200">
-                  {destination.division} বিভাগ
-                </span>
-              </div>
+              {/* Refined Scrim Gradient (Only bottom 28% for text, keeps landscape bright and vibrant) */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 via-28% to-transparent pointer-events-none" />
 
-              <div className="flex items-center gap-2">
-                <div className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-black/55 text-white backdrop-blur-md border border-white/20 flex items-center gap-1.5 shadow-sm">
+              {/* Image Counter & Fullscreen Hint */}
+              <div className="absolute top-3.5 left-3.5 right-3.5 z-20 flex items-center justify-between pointer-events-none">
+                <div className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-black/60 text-white backdrop-blur-md border border-white/20 flex items-center gap-1.5 shadow-sm">
                   <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
                   <span>
                     {activeImageIndex + 1} / {galleryImages.length}
                   </span>
                 </div>
+                <div className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-black/60 text-emerald-300 backdrop-blur-md border border-white/20 flex items-center gap-1 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ZoomIn className="w-3 h-3" />
+                  <span>ক্লিক করে জুম করুন</span>
+                </div>
+              </div>
 
-                <button
+              {/* Prev / Next Arrows */}
+              {galleryImages.length > 1 && (
+                <>
+                  <button
+                    onClick={handlePrev}
+                    aria-label="Previous photo"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer hover:border-emerald-400"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    aria-label="Next photo"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer hover:border-emerald-400"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+
+              {/* Hero Title & District at Bottom of Main Showcase */}
+              <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-5 right-4 sm:right-5 z-20 text-white pointer-events-none">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-emerald-300 text-[11px] font-semibold mb-1.5 border border-white/20 shadow-sm">
+                  <MapPin className="w-3 h-3" />
+                  <span>{destination.district}</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight leading-snug drop-shadow-md">
+                  {destination.nameBn}
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-200 font-medium mt-1 max-w-xl drop-shadow line-clamp-1">
+                  {destination.name} • {destination.taglineBn}
+                </p>
+              </div>
+            </div>
+
+            {/* Right Side Mosaic: 4 Images in 2x2 Grid with True 4:3 Landscape Proportions */}
+            <div className="hidden md:grid md:col-span-6 lg:col-span-5 grid-cols-2 grid-rows-2 gap-2.5 sm:gap-3 h-full min-h-0">
+              {sideImages.map((item, idx) => (
+                <div
+                  key={`bento-side-${idx}`}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setIsLightboxOpen(true);
+                    if (idx === 3 || activeImageIndex === item.index) {
+                      setActiveImageIndex(item.index);
+                      setIsLightboxOpen(true);
+                    } else {
+                      setActiveImageIndex(item.index);
+                    }
                   }}
-                  title="ফুলস্ক্রিন লাইটবক্স"
-                  className="p-2 rounded-full bg-black/50 hover:bg-black/75 text-white backdrop-blur-md border border-white/20 shadow-sm transition active:scale-95 cursor-pointer"
+                  className={`relative h-full w-full min-h-0 rounded-2xl overflow-hidden group cursor-pointer border transition-all duration-300 bg-slate-200 dark:bg-slate-900 ${
+                    activeImageIndex === item.index
+                      ? 'border-emerald-500 ring-2 ring-emerald-500/40 shadow-lg scale-[0.99]'
+                      : 'border-slate-200/90 dark:border-white/10 hover:border-emerald-500 hover:shadow-md'
+                  }`}
                 >
-                  <Maximize2 className="w-4 h-4" />
-                </button>
+                  <img
+                    src={item.url}
+                    alt={`${destination.nameBn} - ${idx + 2}`}
+                    onLoad={() => handleImageLoad(item.url)}
+                    style={{ imageRendering: 'high-quality' }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108 block"
+                  />
+                  <div className="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors" />
 
-                {onClose && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onClose();
-                    }}
-                    title="বন্ধ করুন"
-                    className="p-2 rounded-full bg-white/90 hover:bg-white text-slate-700 shadow-sm transition cursor-pointer md:hidden"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            </div>
+                  {/* Hover Quick Indicator */}
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="p-1 rounded-lg bg-black/60 text-white backdrop-blur-md border border-white/20 inline-flex items-center">
+                      <Eye className="w-3 h-3 text-emerald-400" />
+                    </span>
+                  </div>
 
-            {/* Hero Title & District at Bottom of 2/3 Showcase */}
-            <div className="absolute bottom-5 sm:bottom-6 left-5 sm:left-6 right-5 sm:right-6 z-20 text-white pointer-events-none">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-emerald-300 text-[11px] font-semibold mb-2 border border-white/20 shadow-sm">
-                <MapPin className="w-3 h-3" />
-                <span>{destination.district}</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight leading-snug drop-shadow-md">
-                {destination.nameBn}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-200 font-medium mt-1 max-w-xl drop-shadow line-clamp-1">
-                {destination.name} • {destination.taglineBn}
-              </p>
+                  {/* 4th Image: Glassmorphic Badge to View All Photos */}
+                  {idx === 3 && (
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex items-center justify-center p-2 text-center">
+                      <div className="px-3.5 py-2 rounded-xl bg-black/75 backdrop-blur-md border border-white/25 text-white flex items-center gap-2 shadow-xl group-hover:scale-105 transition-transform">
+                        <ImageIcon className="w-4 h-4 text-emerald-400" />
+                        <span className="text-xs font-bold">
+                          {galleryImages.length > 5 ? `+${galleryImages.length - 4} ছবি দেখুন` : 'সব ছবি দেখুন'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
+        )}
 
-          {/* RIGHT 1/3 SIDE: 4 IMAGES IN 2 ROWS (2x2 GRID) (4 of 12 cols = 1/3) */}
-          <div className="hidden md:grid md:col-span-4 grid-cols-2 grid-rows-2 gap-2 sm:gap-2.5 h-full min-h-0 relative">
-            {/* Top Close Button on Desktop */}
-            {onClose && (
+        {/* --- VIEW MODE 2: CINEMATIC FULL 16:9 PANORAMIC STAGE --- */}
+        {viewMode === 'cinematic' && (
+          <div className="relative rounded-2xl overflow-hidden bg-slate-200 dark:bg-slate-900 border border-slate-200/90 dark:border-white/10 shadow-lg h-[380px] sm:h-[440px] md:h-[490px] lg:h-[520px] group">
+            {/* Cinematic Hero Image */}
+            <img
+              key={`cinema-${activeImageIndex}`}
+              src={galleryImages[activeImageIndex]}
+              alt={`${destination.name} - Cinematic`}
+              onLoad={() => handleImageLoad(galleryImages[activeImageIndex])}
+              style={{ imageRendering: 'high-quality' }}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/25 via-35% to-transparent pointer-events-none" />
+
+            {/* Left / Right Cinema Navigation Arrows */}
+            {galleryImages.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrev}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/55 hover:bg-black/85 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/55 hover:bg-black/85 text-white backdrop-blur-md flex items-center justify-center transition active:scale-95 border border-white/20 shadow-lg cursor-pointer"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Floating Top Bar with Autoplay Toggle */}
+            <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between pointer-events-none">
+              <div className="px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-black/60 text-emerald-800 dark:text-emerald-300 backdrop-blur-md border border-slate-200 dark:border-white/20 flex items-center gap-1.5 shadow-md">
+                <Film className="w-3.5 h-3.5" />
+                <span>সিনেমাটিক এইচডি মোড • {activeImageIndex + 1}/{galleryImages.length}</span>
+              </div>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onClose();
+                  setIsPlaying(!isPlaying);
                 }}
-                title="বন্ধ করুন"
-                className="absolute top-2 right-2 z-30 p-2 rounded-full bg-black/60 hover:bg-black/85 text-white backdrop-blur-md border border-white/20 shadow-md transition cursor-pointer hover:scale-105"
+                className="pointer-events-auto px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-black/60 hover:bg-white dark:hover:bg-black/85 text-slate-800 dark:text-white backdrop-blur-md border border-slate-200 dark:border-white/20 flex items-center gap-1.5 shadow-md transition cursor-pointer"
               >
-                <X className="w-4 h-4" />
+                {isPlaying ? <Pause className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> : <Play className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />}
+                <span>{isPlaying ? 'স্লাইডশো থামান' : 'অটো স্লাইডশো'}</span>
               </button>
-            )}
+            </div>
 
-            {sideImages.map((item, idx) => (
-              <div
-                key={idx}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  // Clicking 4th image (idx 3) or clicking an already active image opens full lightbox
-                  if (idx === 3 || activeImageIndex === item.index) {
-                    setActiveImageIndex(item.index);
+            {/* Bottom Cinematic Filmstrip Overlay */}
+            <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="text-white text-left">
+                <h3 className="text-lg sm:text-2xl font-black drop-shadow-md leading-tight">
+                  {destination.nameBn}
+                </h3>
+                <p className="text-xs text-slate-300 drop-shadow line-clamp-1">{destination.taglineBn}</p>
+              </div>
+
+              {/* Horizontal Filmstrip Ribbon */}
+              <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/20 overflow-x-auto max-w-full shadow-lg">
+                {galleryImages.map((img, idx) => (
+                  <button
+                    key={`cinema-thumb-${idx}`}
+                    onClick={() => setActiveImageIndex(idx)}
+                    className={`relative w-12 h-9 sm:w-16 sm:h-11 rounded-lg overflow-hidden shrink-0 transition-all cursor-pointer ${
+                      activeImageIndex === idx
+                        ? 'ring-2 ring-emerald-400 scale-105 shadow-md'
+                        : 'opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* --- VIEW MODE 3: NATURAL RATIO (NO-CROP) GALLERY --- */}
+        {viewMode === 'natural' && (
+          <div className="space-y-3">
+            <div className="p-3 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 flex items-center justify-between shadow-xs">
+              <div className="flex items-center gap-2">
+                <Scan className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span className="text-xs font-semibold">
+                  প্রাকৃতিক নো-ক্রপ ভিউ: প্রতিটি ছবির আসল রেজোলিউশন ও ১০০% সঠিক সাইজ দেখুন
+                </span>
+              </div>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">মোট {galleryImages.length}টি ছবি</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {galleryImages.map((img, idx) => (
+                <div
+                  key={`natural-${idx}`}
+                  onClick={() => {
+                    setActiveImageIndex(idx);
                     setIsLightboxOpen(true);
-                  } else {
-                    // Clicking updates the 2/3 main showcase smoothly
-                    setActiveImageIndex(item.index);
-                  }
-                }}
-                className={`relative h-full w-full min-h-0 rounded-2xl overflow-hidden group cursor-pointer border transition-all duration-300 ${
-                  activeImageIndex === item.index
-                    ? 'border-emerald-400 ring-2 ring-emerald-400/40 shadow-lg'
-                    : 'border-white/10 hover:border-emerald-400'
-                }`}
-              >
-                <img
-                  src={item.url}
-                  alt={`${destination.nameBn} - ${idx + 2}`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108 block"
-                />
-                <div className="absolute inset-0 bg-black/15 group-hover:bg-transparent transition-colors" />
-
-                {/* 4th Image (bottom-right): Badge overlay to view all photos */}
-                {idx === 3 && (
-                  <div className="absolute inset-0 bg-black/35 group-hover:bg-black/45 transition-colors flex items-center justify-center p-2 text-center">
-                    <div className="px-3 py-1.5 rounded-xl bg-black/70 backdrop-blur-md border border-white/25 text-white flex items-center gap-1.5 shadow-lg group-hover:scale-105 transition-transform">
-                      <ImageIcon className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-[11px] font-bold">
-                        {galleryImages.length > 5 ? `+${galleryImages.length - 4} ছবি` : 'সব ছবি'}
-                      </span>
+                  }}
+                  className="rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 group cursor-pointer hover:border-emerald-500 transition-all shadow-xs hover:shadow-md flex flex-col justify-between"
+                >
+                  <div className="relative aspect-[16/10] bg-slate-100 dark:bg-black/40 flex items-center justify-center overflow-hidden">
+                    <img
+                      src={img}
+                      alt={`${destination.nameBn} - Photo ${idx + 1}`}
+                      style={{ imageRendering: 'high-quality' }}
+                      className="w-full h-full object-contain group-hover:scale-104 transition-transform duration-500"
+                    />
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 text-white text-[10px] font-bold backdrop-blur-md border border-white/20">
+                      #{idx + 1}
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
+                  <div className="p-2.5 flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-white/5 border-t border-slate-100 dark:border-transparent">
+                    <span className="font-medium truncate">{destination.nameBn} • ছবি {idx + 1}</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold inline-flex items-center gap-1">
+                      <ZoomIn className="w-3 h-3" /> জুম
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Mobile Horizontal Thumbnail Bar (Visible only on mobile screens when multiple images) */}
-        {galleryImages.length > 1 && (
+        {/* Mobile Horizontal Thumbnail Bar (Visible in Bento mode on small screens) */}
+        {viewMode === 'bento' && galleryImages.length > 1 && (
           <div className="flex md:hidden items-center gap-2 pt-2 px-1 overflow-x-auto no-scrollbar">
             {galleryImages.map((img, idx) => (
               <button
-                key={idx}
+                key={`mobile-thumb-${idx}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setActiveImageIndex(idx);
                 }}
                 className={`relative w-14 h-11 rounded-xl overflow-hidden shrink-0 border transition-all cursor-pointer ${
                   activeImageIndex === idx
-                    ? 'border-emerald-400 ring-2 ring-emerald-400/50 scale-105'
-                    : 'border-white/20 opacity-70 hover:opacity-100'
+                    ? 'border-emerald-500 ring-2 ring-emerald-500/40 scale-105'
+                    : 'border-slate-300 dark:border-white/20 opacity-70 hover:opacity-100'
                 }`}
               >
                 <img src={img} alt={`mobile-thumb-${idx}`} className="w-full h-full object-cover" />
@@ -310,9 +522,9 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
             ))}
             <button
               onClick={() => setIsLightboxOpen(true)}
-              className="px-3 py-2 rounded-xl bg-black/60 backdrop-blur-md text-white text-[11px] font-bold shrink-0 flex items-center gap-1.5 border border-white/20 cursor-pointer active:scale-95 transition"
+              className="px-3 py-2 rounded-xl bg-white dark:bg-black/60 backdrop-blur-md text-slate-700 dark:text-white text-[11px] font-bold shrink-0 flex items-center gap-1.5 border border-slate-200 dark:border-white/20 cursor-pointer active:scale-95 transition shadow-xs"
             >
-              <Maximize2 className="w-3.5 h-3.5 text-emerald-400" />
+              <Maximize2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>সব ছবি</span>
             </button>
           </div>
@@ -625,65 +837,136 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
         </div>
       </div>
 
-      {/* Fullscreen Interactive Lightbox Modal */}
+      {/* Fullscreen Ultra-HD Interactive Lightbox Modal */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-6 animate-fadeIn select-none"
-          onClick={() => setIsLightboxOpen(false)}
+          className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-3 sm:p-5 select-none animate-fadeIn"
+          onClick={() => {
+            setIsLightboxOpen(false);
+            setIsZoomed(false);
+          }}
         >
           {/* Modal Top Bar */}
           <div
-            className="w-full max-w-5xl mx-auto flex items-center justify-between gap-4 text-white z-10"
+            className="w-full max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 text-white z-10 p-1"
             onClick={(e) => e.stopPropagation()}
           >
             <div>
-              <h3 className="text-sm sm:text-base font-bold flex items-center gap-2">
-                <span>{destination.nameBn}</span>
-                <span className="text-xs font-normal text-slate-400">({destination.name})</span>
-              </h3>
-              <p className="text-[11px] text-emerald-400">
-                ছবি {activeImageIndex + 1} এর {galleryImages.length}
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-white">
+                  {destination.nameBn}
+                </h3>
+                <span className="text-xs text-slate-400 hidden sm:inline">
+                  ({destination.name})
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950/70 text-emerald-300 border border-emerald-500/30">
+                  4K HD
+                </span>
+              </div>
+              <p className="text-[11px] text-emerald-400 flex items-center gap-2 mt-0.5">
+                <span>ছবি {activeImageIndex + 1} এর {galleryImages.length}</span>
+                <span>•</span>
+                <span className="text-slate-400">{destination.district}</span>
               </p>
             </div>
 
-            <button
-              onClick={() => setIsLightboxOpen(false)}
-              className="p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition active:scale-95 cursor-pointer"
-              title="বন্ধ করুন (Esc)"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            {/* Lightbox Action Buttons */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {/* 100% Crisp Resolution Zoom Toggle */}
+              <button
+                onClick={() => setIsZoomed(!isZoomed)}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold transition active:scale-95 cursor-pointer backdrop-blur-md flex items-center gap-1.5 border shadow-sm ${
+                  isZoomed
+                    ? 'bg-amber-500/20 border-amber-400/40 text-amber-300 ring-2 ring-amber-400/30'
+                    : 'bg-white/10 hover:bg-white/20 border-white/15 text-white'
+                }`}
+                title={isZoomed ? 'স্ক্রিন ফিট মোড' : '১০০% আসল রেজোলিউশন জুম (1:1 Native HD)'}
+              >
+                {isZoomed ? (
+                  <ZoomOut className="w-3.5 h-3.5 text-amber-400" />
+                ) : (
+                  <ZoomIn className="w-3.5 h-3.5 text-emerald-400" />
+                )}
+                <span>{isZoomed ? 'স্ক্রিন ফিট' : '১০০% আসল রেজোলিউশন'}</span>
+              </button>
+
+              {/* Browser Fullscreen Toggle */}
+              <button
+                onClick={toggleBrowserFullscreen}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition active:scale-95 cursor-pointer backdrop-blur-md border border-white/15 shadow-sm"
+                title="ব্রাউজার ফুলস্ক্রিন"
+              >
+                <Maximize2 className="w-4 h-4 text-emerald-400" />
+              </button>
+
+              {/* Open Original Full-Res Image in New Tab */}
+              <a
+                href={galleryImages[activeImageIndex]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition active:scale-95 cursor-pointer backdrop-blur-md border border-white/15 shadow-sm"
+                title="নতুন ট্যাবে ফুল রেজোলিউশন ছবি দেখুন"
+              >
+                <Download className="w-4 h-4 text-sky-400" />
+              </a>
+
+              {/* Close Button */}
+              <button
+                onClick={() => {
+                  setIsLightboxOpen(false);
+                  setIsZoomed(false);
+                }}
+                className="p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition active:scale-95 cursor-pointer backdrop-blur-md border border-white/15 shadow-sm"
+                title="বন্ধ করুন (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          {/* Modal Main Center Image with Left/Right Navigation */}
+          {/* Modal Main Center Image Stage with Left/Right Navigation */}
           <div
-            className="relative w-full max-w-5xl mx-auto flex-1 flex items-center justify-center my-4 overflow-hidden"
+            className="relative w-full max-w-6xl mx-auto flex-1 flex items-center justify-center my-2 sm:my-3 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Prev Arrow */}
             {galleryImages.length > 1 && (
               <button
                 onClick={handlePrev}
-                className="absolute left-2 sm:left-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition active:scale-95 cursor-pointer backdrop-blur-md"
+                className="absolute left-2 sm:left-4 z-20 p-2.5 sm:p-3 rounded-full bg-black/60 hover:bg-black/90 text-white transition active:scale-95 cursor-pointer backdrop-blur-md border border-white/20 shadow-xl"
                 title="পূর্ববর্তী ছবি (Left Arrow)"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             )}
 
-            <img
-              key={activeImageIndex}
-              src={galleryImages[activeImageIndex]}
-              alt={`${destination.name} - Fullscreen Preview`}
-              className="max-h-[70vh] sm:max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl animate-fadeIn select-none border border-white/10"
-            />
+            {/* Viewport: Fit Screen vs 100% Uncompressed Zoom */}
+            <div
+              className={`w-full h-full flex items-center justify-center ${
+                isZoomed ? 'overflow-auto max-h-[78vh] p-4 cursor-grab active:cursor-grabbing' : ''
+              }`}
+            >
+              <img
+                key={`lightbox-img-${activeImageIndex}-${isZoomed}`}
+                src={galleryImages[activeImageIndex]}
+                alt={`${destination.name} - Fullscreen Preview`}
+                style={{ imageRendering: 'high-quality' }}
+                className={`${
+                  isZoomed
+                    ? 'max-h-none max-w-none w-auto h-auto rounded-xl shadow-2xl select-none border border-white/20 animate-fadeIn'
+                    : 'max-h-[72vh] sm:max-h-[76vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl select-none border border-white/10 animate-fadeIn'
+                }`}
+              />
+            </div>
 
+            {/* Next Arrow */}
             {galleryImages.length > 1 && (
               <button
                 onClick={handleNext}
-                className="absolute right-2 sm:right-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition active:scale-95 cursor-pointer backdrop-blur-md"
+                className="absolute right-2 sm:right-4 z-20 p-2.5 sm:p-3 rounded-full bg-black/60 hover:bg-black/90 text-white transition active:scale-95 cursor-pointer backdrop-blur-md border border-white/20 shadow-xl"
                 title="পরবর্তী ছবি (Right Arrow)"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             )}
           </div>
@@ -691,16 +974,16 @@ export const DestinationDetail: React.FC<DestinationDetailProps> = ({
           {/* Modal Bottom Thumbnail Strip */}
           {galleryImages.length > 1 && (
             <div
-              className="w-full max-w-3xl mx-auto flex items-center justify-center gap-2 overflow-x-auto py-2 z-10"
+              className="w-full max-w-4xl mx-auto flex items-center justify-center gap-2 overflow-x-auto py-2 z-10 px-2"
               onClick={(e) => e.stopPropagation()}
             >
               {galleryImages.map((img, idx) => (
                 <button
-                  key={idx}
+                  key={`thumb-modal-${idx}`}
                   onClick={() => setActiveImageIndex(idx)}
                   className={`relative w-14 h-11 sm:w-16 sm:h-12 rounded-xl overflow-hidden shrink-0 transition-all cursor-pointer ${
                     activeImageIndex === idx
-                      ? 'ring-2 ring-emerald-400 scale-105 opacity-100 shadow-md'
+                      ? 'ring-2 ring-emerald-400 scale-105 opacity-100 shadow-lg shadow-emerald-500/20'
                       : 'opacity-50 hover:opacity-100'
                   }`}
                 >
