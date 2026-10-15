@@ -323,7 +323,15 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Buy tickets online or from digital kiosk to skip weekend lines.',
       'One of the cleanest and most family-friendly spots in Dhaka.'
     ],
-    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80',
+    image: 'https://old.thefinancialexpress.com.bd/uploads/1661950282.jpg',
+    images: [
+      'https://old.thefinancialexpress.com.bd/uploads/1661950282.jpg',
+      'https://dwg-office.com/wp-content/uploads/2022/11/Bangabandhu-military-museum-Platform-Solutions-Photo-Maruf-Raihan-MRF00272-HDR-scaled.jpg',
+      'https://ecdn.dhakatribune.net/contents/cache/images/640x359x1/uploads/dten/2022/01/06/untitled-1-1554539703287.jpeg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrHnO78BnxmhMyKrmsuMV39b8pYJYdEA-ZJqBPvjOpkoqDe0-TVjJ2zZwg&s=10',
+      'https://bangladeshmilitarymuseum.org/frontend/images/collection/outdoor-1-1.jpg',
+      'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Army_Gallery_At_The_Bangabandhu_Military_Museum.jpg/1280px-Army_Gallery_At_The_Bangabandhu_Military_Museum.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail'
+    ],
     badgeColor: 'from-indigo-600 to-purple-800',
     color: '#6366F1'
   },
