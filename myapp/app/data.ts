@@ -648,7 +648,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Visit Jaflong early morning to witness crystal clear water reflections.',
       'Raincoat and waterproof phone pouches are essential during monsoon.'
     ],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: 'https://www.takeyourbackpack.com/CONTENT/googlePhotos/1200/bangladesh-national-park-ratargul-swamp-forest.webp',
+    images: [
+      'https://www.takeyourbackpack.com/CONTENT/googlePhotos/1200/bangladesh-national-park-ratargul-swamp-forest.webp',
+      'https://vromonguide.com/wp-content/uploads/ratargul-swamp-forest-1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/6/63/Ratargul_Swamp_Forest%2C_Sylhet..jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/0f/53/bc/jaflong-sylhet.jpg?w=900&h=500&s=1',
+      'https://t4.ftcdn.net/jpg/06/99/45/61/360_F_699456135_myZiVNvI1UaEZ24BByzxmpazcLU22lZ0.jpg'
+    ],
     badgeColor: 'from-emerald-700 to-green-900',
     color: '#059669'
   },
@@ -685,7 +692,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Carry power banks as electricity on non-luxury boats is limited to generators.',
       'Monsoon houseboat bookings sell out months in advance for weekends.'
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://thefe-bd.sgp1.cdn.digitaloceanspaces.com/posts/16294/20d35a0ed3ce4857bbe3e25481eaab7e-279440114-294016256252968-1092004695835315850-n.jpeg',
+    images: [
+      'https://thefe-bd.sgp1.cdn.digitaloceanspaces.com/posts/16294/20d35a0ed3ce4857bbe3e25481eaab7e-279440114-294016256252968-1092004695835315850-n.jpeg',
+      'https://arannayk.org/storage/blog/01KG2067MYWP80FSG6MHEDYBRQ.jpg',
+      'https://thefe-bd.sgp1.cdn.digitaloceanspaces.com/uploads/1630034469.jpg',
+      'https://travelblogbangladesh.com/wp-content/uploads/2024/07/%E0%A6%B6%E0%A6%BF%E0%A6%AE%E0%A7%81%E0%A6%B2-%E0%A6%AC%E0%A6%BE%E0%A6%97%E0%A6%BE%E0%A6%A8%E0%A5%A4.jpg',
+      'https://vromonguide.com/wp-content/uploads/shimul-garden-sunamganj.jpg'
+    ],
     badgeColor: 'from-blue-700 to-cyan-600',
     color: '#0284C7'
   },
@@ -759,7 +773,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Check out indigenous handloom textile shops near the hanging bridge for tribal shawls.',
       'Foreign travelers must obtain prior clearance from DC office or local authority.'
     ],
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+    image: 'https://m360ict.s3.ap-south-1.amazonaws.com/monitor-website-storage/news-media-files/0f830aef-cd9e-4f64-bcb4-1586188fa40b.jpg',
+    images: [
+      'https://m360ict.s3.ap-south-1.amazonaws.com/monitor-website-storage/news-media-files/0f830aef-cd9e-4f64-bcb4-1586188fa40b.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXuIZpUgeMjEqy6EbWIIwvqKKlmiQPPsQomSmvn7c4M8nS2HQ6XRIeZyie&s=10',
+      'https://www.visit-bangladesh.net/wp-content/uploads/2025/05/Rangamati-3.jpg',
+      'https://viewsbangladesh.com/_next/image/?url=https%3A%2F%2Fimagedelivery.net%2FHRs_9pnDDn9uipVGixpHsg%2Fc9d2ac1d-da72-44e7-bf8b-da86c04b1c00%2Fpublic&w=1920&q=75',
+      'https://www.travelmate.com.bd/wp-content/uploads/2019/07/Kaptai-Lake.jpg'
+    ],
     badgeColor: 'from-sky-700 to-indigo-800',
     color: '#0369A1'
   },
@@ -795,7 +816,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Respect sacred norms when visiting the shrine pond.',
       'Photography lovers should capture the interior arched colonnade in morning light.'
     ],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: 'https://www.bengaltours.com/wp-content/uploads/2022/08/60-Dome-Mosque.jpg',
+    images: [
+      'https://www.bengaltours.com/wp-content/uploads/2022/08/60-Dome-Mosque.jpg',
+      'https://lh3.googleusercontent.com/ci/AL18g_RyLy5Ci5eYGt9wDCtCS7PTmPVg_IErKqzTkoZaRzN3my9QaWvwVR0Up5q3KWo5T19JBJZ4ZVY=s1200',
+      'https://news.cgtn.com/news/3d3d514f344d444e34457a6333566d54/img/1479aba8e49846c08db6d39e14cad7ef/1479aba8e49846c08db6d39e14cad7ef.jpg',
+      'https://static.toiimg.com/thumb/69129101/bagerhat.jpg?width=1200&height=900',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHvLiA1lxd5cSQs3EiQLcEizQZQ0ZuM9ZHP8AHGOAiRNFR5L1x6znzpvQb&s=10'
+    ],
     badgeColor: 'from-amber-700 to-yellow-800',
     color: '#B45309'
   },
