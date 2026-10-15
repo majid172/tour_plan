@@ -487,7 +487,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Carry mosquito repellent and leech socks when hiking deep into Lawachara trails.',
       'Buy original BTRI garden fresh Orange Pekoe loose tea to take home.'
     ],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: 'https://today.thefinancialexpress.com.bd/uploads/1693324787.jpg',
+    images: [
+      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVA7NYJ-AQV6gEjXO4SqO4sgwpH4wwab-ZSzLLqlwTQ6TF0dfvcqBBGk&s=10',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e2/f8/43/longest-sea-beach-in.jpg?w=1100&h=-1&s=1',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSCCG3jdtIkgBXFjjnf9zoE8n7GMPw3X5DLJurHVUkttEsPRrFySoHGXc&s=10',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhCFv3uSjPYvxgKkFJl0VBMNrDbSIYFx0oRslcZ3brOGt-P6Z6sVmmd6IPTVzUipfIkPnCUyUeXt4_f6u_Eoo7OoM_I75Ad-fPK3EBcUscLBBt80xYNZJKCFozOs5svnYGobMUL9wwuprA/s1600/319_1bangla6055.jpg'
+    ],
     badgeColor: 'from-green-700 to-emerald-900',
     color: '#047857'
   },
@@ -524,7 +531,14 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Zero plastic pollution policy strictly enforced by the Forest Department.',
       'No mobile network in deep mangrove waters; prepare for a refreshing digital detox.'
     ],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.firstpost.com/uploads/2026/05/featured-image-48-2026-05-fac353ebb592665f1d9dcdcb227a6b44.jpg?im=Resize,width=720,aspect=fit,type=normal',
+    images: [
+      'https://today.thefinancialexpress.com.bd/uploads/1693324787.jpg',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVA7NYJ-AQV6gEjXO4SqO4sgwpH4wwab-ZSzLLqlwTQ6TF0dfvcqBBGk&s=10',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/e2/f8/43/longest-sea-beach-in.jpg?w=1100&h=-1&s=1',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQSCCG3jdtIkgBXFjjnf9zoE8n7GMPw3X5DLJurHVUkttEsPRrFySoHGXc&s=10',
+      'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhCFv3uSjPYvxgKkFJl0VBMNrDbSIYFx0oRslcZ3brOGt-P6Z6sVmmd6IPTVzUipfIkPnCUyUeXt4_f6u_Eoo7OoM_I75Ad-fPK3EBcUscLBBt80xYNZJKCFozOs5svnYGobMUL9wwuprA/s1600/319_1bangla6055.jpg'
+    ],
     badgeColor: 'from-amber-800 to-emerald-900',
     color: '#15803D'
   },
