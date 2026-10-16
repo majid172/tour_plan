@@ -158,7 +158,7 @@ export const DESTINATIONS_DATA: Destination[] = [
       'Carry your own water bottle and sun umbrella.',
       'Keep your ticket safe until exit.'
     ],
-    image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
+    image: 'https://d34vm3j4h7f97z.cloudfront.net/original/4X/b/e/4/be4ca72cc9678617062eb55d1e715608e4b917f8.jpeg',
     images: [
       'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
